@@ -1,0 +1,15 @@
+## Synopsis
+Practical Test 3 of Fundamentals of Programming COMP1005/5005
+
+## Contents
+README - readme file for PracTest 3
+garden.py - Module for simGarden project
+simGarden.py - Simulating ants and butterflies
+garden.csv - CSV file of terrain and sky
+
+## Dependencies:
+numpy
+matplotlib
+random
+## Version information
+<02/10/2023> - Final version of PracTest 3
