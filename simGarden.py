@@ -84,14 +84,15 @@ def main():
                                rock.getPos() for rock in rocks])
             bflies[i].stepChange(getSubgrid(terrain, bflies[i].getPos()))
             ladybugs[i].stepChange(getSubgrid(terrain, ladybugs[i].getPos()))
-            caterpillars[i].stepChange(getSubgrid(
-                terrain, caterpillars[i].getPos()))
-
-            # Plotting the objects for visual representation
+         #   caterpillars[i].stepChange(getSubgrid(
+         #       terrain, caterpillars[i].getPos()))
+        # Plotting the objects for visual representation
             ants[i].plotMe(ax, LIMITS)
             bflies[i].plotMe(ax, LIMITS)
             ladybugs[i].plotMe(ax, LIMITS)
             caterpillars[i].plotMe(ax, LIMITS)
+        for caterpillar in caterpillars:
+            caterpillar.stepChange(getSubgrid(terrain, caterpillar.getPos()))
 
         for i in range(3):
             trees[i].plotMe(ax, LIMITS)

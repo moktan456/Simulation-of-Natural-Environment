@@ -112,7 +112,9 @@ class Caterpillar():
         self.name = name
         self.pos = pos
         self.colour = colour
-        self.size = 0.4
+        self.segment_radius = 0.4  # Size of a caterpillar segment
+        self.num_segments = 5  # Length of caterpillar
+        # self.size = 0.4
 
     def getPos(self):
         return self.pos
@@ -124,9 +126,13 @@ class Caterpillar():
         self.pos = (self.pos[0] + move[0], self.pos[1] + move[1])
 
     def plotMe(self, ax, LIMITS):
-        XYpos = flipCoords(self.pos, LIMITS)
-        circle1 = plt.Circle(XYpos, self.size, color=self.colour)
-        ax.add_patch(circle1)
+        for i in range(self.num_segments):
+            segment_pos = (self.pos[0], self.pos[1] +
+                           i * 2 * self.segment_radius)
+            segment_pos = flipCoords(segment_pos, LIMITS)
+            circle = plt.Circle(
+                segment_pos, self.segment_radius, color=self.colour)
+            ax.add_patch(circle)
 
 # Creating obstacles
 
