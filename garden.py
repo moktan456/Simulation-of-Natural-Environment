@@ -132,19 +132,30 @@ class Caterpillar():
 
 
 class Plant():
-    def __init__(self, name, pos, colour):
+    def __init__(self, name, pos):
         self.name = name
         self.pos = pos
-        self.colour = colour
-        self.size = 1.3
+        self.trunk_colour = 'brown'  # Color of the tree trunk
+        self.foliage_colour = 'green'  # color of the foliage
+        self.trunk_size = 0.2   # Size of the tree trunk
+        self.foliage_size = 1.5  # Size of the foliage
 
     def getPos(self):
         return self.pos
 
     def plotMe(self, ax, LIMITS):
-        XYpos = flipCoords(self.pos, LIMITS)
-        circle1 = plt.Circle(XYpos, self.size, color=self.colour)
-        ax.add_patch(circle1)
+        # Plot the tree trunk
+        trunk_pos = flipCoords(self.pos, LIMITS)
+        trunk = plt.Rectangle((trunk_pos[0] - self.trunk_size / 2, trunk_pos[1]),
+                              self.trunk_size, self.foliage_size * 0.2, color=self.trunk_colour)
+        ax.add_patch(trunk)
+
+        # Plot the tree foliage
+        foliage_pos = flipCoords(
+            (self.pos[0], self.pos[1] + self.foliage_size * 0.1), LIMITS)
+        foliage = plt.Circle(
+            foliage_pos, self.foliage_size / 2, color=self.foliage_colour)
+        ax.add_patch(foliage)
 
 
 class Rock():
