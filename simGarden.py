@@ -23,7 +23,7 @@ def main():
     ladybugs = []
     caterpillars = []
     # Adding Obstacles
-    trees = []
+    plants = []
     rocks = []
     for index in range(5):
         arow = 40
@@ -46,9 +46,9 @@ def main():
             'C' + str(index + 1), (crow, ccol + index * 5), 'green'))
     # Creating instances of Plant and Rock
     for index in range(3):
-        trow = 10
-        tcol = 10
-        trees.append(Plant('T' + str(index + 1), (trow, tcol + index * 5)))
+        prow = 10
+        pcol = 10
+        plants.append(Plant('P' + str(index + 1), (prow, pcol + index * 8)))
 
         rrow = 40
         rcol = 10
@@ -94,9 +94,9 @@ def main():
         for caterpillar in caterpillars:
             caterpillar.stepChange(getSubgrid(terrain, caterpillar.getPos()))
 
-        for i in range(3):
-            trees[i].plotMe(ax, LIMITS)
-            rocks[i].plotMe(ax, LIMITS)
+        for plant in plants:
+            plant.plotMe(ax, LIMITS)
+
         plt.title(f'This is Plot {timesteps+1}', fontsize='18')
         plt.grid()
         plt.pause(1)

@@ -72,7 +72,7 @@ class Butterfly():
         # Valid moves using Moore neighbourhood
         validMoves = [(0, 0), (-1, 0), (-1, 1), (0, 1), (1, 1),
                       (1, 0), (1, -1), (0, -1), (-1, -1)]
-        print(f'Butterflies validmoves: {validMoves}')
+        # print(f'Butterflies validmoves: {validMoves}')
         # print(validMoves)
         if len(validMoves) > 0:
             move = random.choice(validMoves)
@@ -141,26 +141,25 @@ class Plant():
     def __init__(self, name, pos):
         self.name = name
         self.pos = pos
-        self.trunk_colour = 'brown'  # Color of the tree trunk
-        self.foliage_colour = 'green'  # color of the foliage
-        self.trunk_size = 0.2   # Size of the tree trunk
-        self.foliage_size = 1.5  # Size of the foliage
+        self.trunk_colour = "brown"  # Color of the tree trunk
+        self.foliage_colour = "green"  # Color of the foliage
+        self.trunk_width = 0.8  # Width of the tree trunk
+        self.trunk_height = 2  # Height of the tree trunk
+        self.foliage_radius = 0.6  # Radius of the foliage
 
     def getPos(self):
         return self.pos
 
     def plotMe(self, ax, LIMITS):
-        # Plot the tree trunk
         trunk_pos = flipCoords(self.pos, LIMITS)
-        trunk = plt.Rectangle((trunk_pos[0] - self.trunk_size / 2, trunk_pos[1]),
-                              self.trunk_size, self.foliage_size * 0.2, color=self.trunk_colour)
+        trunk = plt.Rectangle((trunk_pos[0] + self.trunk_width*2, trunk_pos[1]),
+                              self.trunk_width, self.trunk_height, color=self.trunk_colour)
         ax.add_patch(trunk)
 
-        # Plot the tree foliage
         foliage_pos = flipCoords(
-            (self.pos[0], self.pos[1] + self.foliage_size * 0.1), LIMITS)
+            (self.pos[0], self.pos[1] + self.trunk_height), LIMITS)
         foliage = plt.Circle(
-            foliage_pos, self.foliage_size / 2, color=self.foliage_colour)
+            foliage_pos, self.foliage_radius, color=self.foliage_colour)
         ax.add_patch(foliage)
 
 
