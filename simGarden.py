@@ -20,11 +20,18 @@ def main():
     # Creating an objects
     ants = []
     bflies = []
+    # Defining a list of colors for butterflies
+    bflies_colors = ['red', 'blue', 'orange', 'purple', 'yellow']
     ladybugs = []
     caterpillars = []
     # Adding Obstacles
     plants = []
     rocks = []
+
+    for index, color in enumerate(bflies_colors):
+        brow = 10
+        bcol = 5
+        bflies.append(Butterfly('B'+str(index+1), (brow, bcol+index*5), color))
     for index in range(5):
         arow = 40
         acol = 15
@@ -32,8 +39,8 @@ def main():
 
         brow = 10
         bcol = 5
-        bflies.append(Butterfly('B'+str(index+1),
-                      (brow, bcol+index*5), 'yellow'))
+        # bflies.append(Butterfly('B'+str(index+1),
+        #             (brow, bcol+index*5), 'yellow'))
 
         lrow = 10
         lcol = 30
@@ -82,8 +89,8 @@ def main():
             # Updating the positions of different objects at different time stamp
             ants[i].stepChange(getSubgrid(terrain, ants[i].getPos()), [
                                rock.getPos() for rock in rocks])
-            bflies[i].stepChange(getSubgrid(terrain, bflies[i].getPos()))
-            ladybugs[i].stepChange(getSubgrid(terrain, ladybugs[i].getPos()))
+            # bflies[i].stepChange(getSubgrid(terrain, bflies[i].getPos()))
+            # ladybugs[i].stepChange(getSubgrid(terrain, ladybugs[i].getPos()))
          #   caterpillars[i].stepChange(getSubgrid(
          #       terrain, caterpillars[i].getPos()))
         # Plotting the objects for visual representation
@@ -91,11 +98,22 @@ def main():
             bflies[i].plotMe(ax, LIMITS)
             ladybugs[i].plotMe(ax, LIMITS)
             caterpillars[i].plotMe(ax, LIMITS)
-        for caterpillar in caterpillars:
-            caterpillar.stepChange(getSubgrid(terrain, caterpillar.getPos()))
+        for rock in rocks:
+            rock.plotMe(ax, LIMITS)
 
         for plant in plants:
             plant.plotMe(ax, LIMITS)
+        # Simulation of caterpillar, butterfly and ladybug resting on collision with plants for 3 seconds
+
+        for caterpillar in caterpillars:
+            caterpillar.stepChange(getSubgrid(terrain, caterpillar.getPos()), [
+                                   plant.getPos() for plant in plants])
+        for butterfly in bflies:
+            butterfly.stepChange(getSubgrid(terrain, butterfly.getPos()), [
+                plant.getPos() for plant in plants])
+        for ladybug in ladybugs:
+            ladybug.stepChange(getSubgrid(terrain, ladybug.getPos()), [
+                plant.getPos() for plant in plants])
 
         plt.title(f'This is Plot {timesteps+1}', fontsize='18')
         plt.grid()

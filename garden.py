@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import random
+import time
 
 
 def flipCoords(rcpos, LIMITS):
@@ -10,7 +11,7 @@ def flipCoords(rcpos, LIMITS):
 
 
 class Ant():
-    size = 0.5
+    size = 0.3
 
     def __init__(self, name, pos):
         self.name = name
@@ -21,18 +22,6 @@ class Ant():
     def getPos(self):
         return self.pos
 
-    # def stepChange(self, subgrid):
-    #     validMoves = []
-    #     # Valid moves using Von Neuman Neighbourhood
-    #     # validMoves = [(0,0),(1,0),(0,1),(-1,0),(0,-1)]
-    #     print(f'Ants valid moves: {validMoves}')
-    #     for a in range(len(subgrid)):
-    #         for b in range(len(subgrid)):
-    #             if subgrid[a, b] == 0:
-    #                 validMoves.append((a-1, b-1))
-    #     if len(validMoves) > 0:
-    #         move = random.choice(validMoves)
-    #         self.pos = (self.pos[0] + move[0],  self.pos[1] + move[1])
     # Modification of stepchange method to check for collisions with rocks before moving
     def stepChange(self, subgrid, rocks):
         validMoves = [(0, 0), (-1, 0), (1, 0), (0, -1), (0, 1)]
@@ -62,13 +51,18 @@ class Butterfly():
         self.name = name
         self.pos = pos
         self.colour = colour
-        self.size = 1
+        self.size = 0.7
 
     def getPos(self):
         return self.pos
 
-    def stepChange(self, subgrid):
+    def stepChange(self, subgrid, plants):
         # validMoves = [(1,-1),(1,1)]
+
+        # Check if the butterfly is on a plant
+        if self.pos in plants:
+            print(f'Butterfly {self.name} is resting on a plant.')
+            time.sleep(3)  # Rest for 3 seconds before moving again
         # Valid moves using Moore neighbourhood
         validMoves = [(0, 0), (-1, 0), (-1, 1), (0, 1), (1, 1),
                       (1, 0), (1, -1), (0, -1), (-1, -1)]
@@ -91,12 +85,16 @@ class Ladybug():
         self.name = name
         self.pos = pos
         self.colour = colour
-        self.size = 0.8
+        self.size = 0.5
 
     def getPos(self):
         return self.pos
 
-    def stepChange(self, subgrid):
+    def stepChange(self, subgrid, plants):
+        # Check if the ladybug is on a plant
+        if self.pos in plants:
+            print(f'Ladybug {self.name} is resting on a plant.')
+            time.sleep(3)  # Rest for 3 seconds before moving again
         validMoves = [(0, 0), (-1, 0), (0, -1), (1, 0), (0, 1)]
         move = random.choice(validMoves)
         self.pos = (self.pos[0] + move[0], self.pos[1] + move[1])
@@ -112,14 +110,18 @@ class Caterpillar():
         self.name = name
         self.pos = pos
         self.colour = colour
-        self.segment_radius = 0.4  # Size of a caterpillar segment
+        self.segment_radius = 0.2  # Size of a caterpillar segment
         self.num_segments = 5  # Length of caterpillar
         # self.size = 0.4
 
     def getPos(self):
         return self.pos
 
-    def stepChange(self, subgrid):
+    def stepChange(self, subgrid, plants):
+        # check if the caterpillar is on a plant
+        if self.pos in plants:
+            print(f'Caterpillar {self.name} is resting on plant.')
+            time.sleep(3)  # Rest for 3 seconds before moving again
         # Caterpillar moves left,right and forward only
         validMoves = [(0, 1), (-1, 0), (1, 0)]
         move = random.choice(validMoves)
@@ -143,9 +145,9 @@ class Plant():
         self.pos = pos
         self.trunk_colour = "brown"  # Color of the tree trunk
         self.foliage_colour = "green"  # Color of the foliage
-        self.trunk_width = 0.8  # Width of the tree trunk
-        self.trunk_height = 2  # Height of the tree trunk
-        self.foliage_radius = 0.6  # Radius of the foliage
+        self.trunk_width = 1.2  # Width of the tree trunk
+        self.trunk_height = 3  # Height of the tree trunk
+        self.foliage_radius = 1.5  # Radius of the foliage
 
     def getPos(self):
         return self.pos
