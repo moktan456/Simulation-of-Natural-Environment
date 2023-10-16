@@ -27,7 +27,7 @@ def main():
     # Adding Obstacles
     plants = []
     rocks = []
-
+    raindrops = []
     for index, color in enumerate(bflies_colors):
         brow = 10
         bcol = 5
@@ -61,6 +61,7 @@ def main():
         rcol = 10
         rocks.append(Rock('R' + str(index + 1),
                      (rrow, rcol + index * 15), 'gray'))
+
     plt.figure(figsize=(8, 8))
     ax = plt.axes()
     ax.set_aspect("equal")
@@ -80,6 +81,11 @@ def main():
     terrain = np.array(tlist)
     LIMITS = terrain.shape
     print(f'LIMITS are: {LIMITS}')
+    for index in range(50):
+        row = random.randint(0, LIMITS[0])
+        col = random.randint(0, LIMITS[1])
+        speed = random.uniform(1, 2)
+        raindrops.append(Raindrop((row, col), speed))
     # print(tlist[0][4])
     # To plot objects at different time stam
     for timesteps in range(5):
@@ -93,6 +99,7 @@ def main():
             # ladybugs[i].stepChange(getSubgrid(terrain, ladybugs[i].getPos()))
          #   caterpillars[i].stepChange(getSubgrid(
          #       terrain, caterpillars[i].getPos()))
+
         # Plotting the objects for visual representation
             ants[i].plotMe(ax, LIMITS)
             bflies[i].plotMe(ax, LIMITS)
@@ -115,6 +122,15 @@ def main():
             ladybug.stepChange(getSubgrid(terrain, ladybug.getPos()), [
                 plant.getPos() for plant in plants])
 
+        for raindrop in raindrops:
+            if raindrop.getPos() is not None:
+                raindrop.stepChange()
+                # To check if the raindrop still exists
+                if raindrop.getPos() is not None:
+                    raindrop.plotMe(ax, LIMITS)
+            else:
+                # Remove raindrops
+                raindrops.remove(raindrop)
         plt.title(f'This is Plot {timesteps+1}', fontsize='18')
         plt.grid()
         plt.pause(1)

@@ -179,3 +179,27 @@ class Rock():
         XYpos = flipCoords(self.pos, LIMITS)
         circle1 = plt.Circle(XYpos, self.size, color=self.colour)
         ax.add_patch(circle1)
+
+
+class Raindrop():
+    def __init__(self, pos, speed):
+        self.pos = pos
+        self.speed = speed
+        # size of the rain
+        self.size = 0.1
+
+    def getPos(self):
+        return self.pos
+
+    def stepChange(self):
+        # Simulating the raindrop falling down by updating the position
+        if self.pos[0] < 15:
+            self.pos = (self.pos[0], self.pos[1] - self.speed)
+        else:
+            # Remove the raindrop when it hits row 15
+            self.pos = None
+
+    def plotMe(self, ax, LIMITS):
+        XYpos = flipCoords(self.pos, LIMITS)
+        circle = plt.Circle(XYpos, self.size, color='aqua')
+        ax.add_patch(circle)
