@@ -29,7 +29,7 @@ class Ant():
         for move in validMoves:
             new_pos = (self.pos[0] + move[0], self.pos[1] + move[1])
             if new_pos not in rocks:
-                # Added from here
+                # The ant will move in only tunnel
                 for a in range(len(subgrid)):
                     for b in range(len(subgrid)):
                         if subgrid[a, b] == 0:

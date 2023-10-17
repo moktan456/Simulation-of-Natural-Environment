@@ -1,6 +1,6 @@
 ## Synopsis
 
-Project on simulation of Natural Environment using Python
+This project aims to simulate a dynamic garden ecosystem using the Python programming language. By integrating various entities such as ants, butterflies, ladybugs, caterpillars, plants, rocks, and raindrops, the simulation provides an interactive platform for users to explore the complexities of natural environments.
 
 ## Contents
 
@@ -18,3 +18,33 @@ random
 ## Version information
 
 <02/10/2023> - Initial Version
+
+## Features
+
+- Realistic simulation of entity behaviors and interactions
+- Visualization of the garden terrain and topographical features
+- Dynamic raindrop simulation and environmental interactions
+- User-friendly interface for easy navigation and observation
+
+## Installation
+
+1. Ensure Python is installed on your system.
+2. Clone the project repository using the following command:
+   git clone https://github.com/moktan456/Simulation-of-Natural-Environment
+
+3. Run the main script to initiate the simulation.
+
+## Usage
+
+- Execute the main script to start the simulation.
+- Observe the behaviors of simulated entities and their interactions within the environment.
+- Analyze the impact of terrain features and environmental factors on entity movements.
+- The program will terminate automatically after certain timestamp
+
+## Contributing
+
+Contributions to the project are welcome. Feel free to open a pull request with any enhancements or additional features.
+
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
