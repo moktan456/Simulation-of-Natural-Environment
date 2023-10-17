@@ -1,15 +1,20 @@
 ## Synopsis
-Practical Test 3 of Fundamentals of Programming COMP1005/5005
+
+Project on simulation of Natural Environment using Python
 
 ## Contents
-README - readme file for PracTest 3
+
+README - readme file for the Project
 garden.py - Module for simGarden project
 simGarden.py - Simulating ants and butterflies
 garden.csv - CSV file of terrain and sky
 
 ## Dependencies:
+
 numpy
 matplotlib
 random
+
 ## Version information
-<02/10/2023> - Final version of PracTest 3
+
+<02/10/2023> - Initial Version
