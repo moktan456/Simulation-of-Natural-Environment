@@ -14,18 +14,20 @@ def flipCoords(rcpos, LIMITS):
 
 class Organism:
     def __init__(self, name, pos, colour):
-        self.name = name
-        self.pos = pos
-        self.colour = colour
+        self.name = name  # Name of an entity
+        self.pos = pos  # Position of an entitiy
+        self.colour = colour    # Color of an antity
 
+    # Method to return the position of an entity
     def getPos(self):
         return self.pos
+    # Method to plot an entity
 
     def plotMe(self, ax, LIMITS, shape, size):
         XYpos = flipCoords(self.pos, LIMITS)
         if shape == "circle":
             obj = plt.Circle(XYpos, size, color=self.colour)
-        elif shape == "rectangle":
+        elif shape == "rectangle":  # This is specifically to plot trunk part of tree
             obj = plt.Rectangle(
                 (XYpos[0] + size * 2, XYpos[1]), size, size * 2, color=self.colour)
         ax.add_patch(obj)
@@ -224,7 +226,7 @@ class Raindrop():
         if self.pos[0] < 15:
             self.pos = (self.pos[0], self.pos[1] - self.speed)
         else:
-            # Remove the raindrop when it hits row 15
+            # Remove the raindrop when it hits row 15 (Making visible only above the ground)
             self.pos = None
 
     def plotMe(self, ax, LIMITS):
