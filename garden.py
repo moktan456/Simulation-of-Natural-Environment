@@ -9,8 +9,31 @@ def flipCoords(rcpos, LIMITS):
     x = rcpos[1]
     return (x, y)
 
+# Definition of super class Organism
 
-class Ant():
+
+class Organism:
+    def __init__(self, name, pos, colour):
+        self.name = name
+        self.pos = pos
+        self.colour = colour
+
+    def getPos(self):
+        return self.pos
+
+    def plotMe(self, ax, LIMITS, shape, size):
+        XYpos = flipCoords(self.pos, LIMITS)
+        if shape == "circle":
+            obj = plt.Circle(XYpos, size, color=self.colour)
+        elif shape == "rectangle":
+            obj = plt.Rectangle(
+                (XYpos[0] + size * 2, XYpos[1]), size, size * 2, color=self.colour)
+        ax.add_patch(obj)
+
+# Definition of Ant class inheriting the super class Organism
+
+
+class Ant(Organism):
     size = 0.3
 
     def __init__(self, name, pos):
@@ -19,8 +42,8 @@ class Ant():
         self.colour = "red"
         # self.heading = heading
 
-    def getPos(self):
-        return self.pos
+    # def getPos(self):
+    #     return self.pos
 
     # Modification of stepchange method to check for collisions with rocks before moving
     def stepChange(self, subgrid, rocks):
@@ -39,22 +62,25 @@ class Ant():
             move = random.choice(possible_moves)
             self.pos = (self.pos[0] + move[0], self.pos[1] + move[1])
 
-    def plotMe(self, ax, LIMITS):
-        XYpos = flipCoords(self.pos, LIMITS)
-        circle1 = plt.Circle(XYpos, self.size, color=self.colour)
-        ax.add_patch(circle1)
+    # def plotMe(self, ax, LIMITS):
+    #     XYpos = flipCoords(self.pos, LIMITS)
+    #     circle1 = plt.Circle(XYpos, self.size, color=self.colour)
+    #     ax.add_patch(circle1)
+
+# Definition of Butterfly class inheriting the super class Organism
 
 
-class Butterfly():
+class Butterfly(Organism):
+    size = 1
 
-    def __init__(self, name, pos, colour):
-        self.name = name
-        self.pos = pos
-        self.colour = colour
-        self.size = 0.7
+    # def __init__(self, name, pos, colour):
+    #     self.name = name
+    #     self.pos = pos
+    #     self.colour = colour
+    #     self.size = 0.7
 
-    def getPos(self):
-        return self.pos
+    # def getPos(self):
+    #     return self.pos
 
     def stepChange(self, subgrid, plants):
         # validMoves = [(1,-1),(1,1)]
@@ -72,23 +98,22 @@ class Butterfly():
             move = random.choice(validMoves)
             self.pos = (self.pos[0] + move[0],  self.pos[1] + move[1])
 
-    def plotMe(self, ax, LIMITS):
-        XYpos = flipCoords(self.pos, LIMITS)
-        circle1 = plt.Circle(XYpos, self.size, color=self.colour)
-        ax.add_patch(circle1)
-
-# Class for ladybug
+    # def plotMe(self, ax, LIMITS):
+    #     XYpos = flipCoords(self.pos, LIMITS)
+    #     circle1 = plt.Circle(XYpos, self.size, color=self.colour)
+    #     ax.add_patch(circle1)
 
 
-class Ladybug():
-    def __init__(self, name, pos, colour):
-        self.name = name
-        self.pos = pos
-        self.colour = colour
-        self.size = 0.5
+# Definition of Ladybug class inheriting the super class Organism
+class Ladybug(Organism):
+    # def __init__(self, name, pos, colour):
+    #     self.name = name
+    #     self.pos = pos
+    #     self.colour = colour
+    #     self.size = 0.5
 
-    def getPos(self):
-        return self.pos
+    # def getPos(self):
+    #     return self.pos
 
     def stepChange(self, subgrid, plants):
         # Check if the ladybug is on a plant
@@ -99,23 +124,23 @@ class Ladybug():
         move = random.choice(validMoves)
         self.pos = (self.pos[0] + move[0], self.pos[1] + move[1])
 
-    def plotMe(self, ax, LIMITS):
-        XYpos = flipCoords(self.pos, LIMITS)
-        circle1 = plt.Circle(XYpos, self.size, color=self.colour)
-        ax.add_patch(circle1)
+    # def plotMe(self, ax, LIMITS):
+    #     XYpos = flipCoords(self.pos, LIMITS)
+    #     circle1 = plt.Circle(XYpos, self.size, color=self.colour)
+    #     ax.add_patch(circle1)
+
+# Definition of Caterpillar class inheriting the super class Organism
 
 
-class Caterpillar():
-    def __init__(self, name, pos, colour):
-        self.name = name
-        self.pos = pos
-        self.colour = colour
-        self.segment_radius = 0.2  # Size of a caterpillar segment
-        self.num_segments = 5  # Length of caterpillar
+class Caterpillar(Organism):
+    def __init__(self, name, pos, colour, num_segments):
+        super().__init__(name, pos, colour)
+        self.segment_radius = 0.2
+        self.num_segments = num_segments
         # self.size = 0.4
 
-    def getPos(self):
-        return self.pos
+    # def getPos(self):
+    #     return self.pos
 
     def stepChange(self, subgrid, plants):
         # check if the caterpillar is on a plant
@@ -127,16 +152,17 @@ class Caterpillar():
         move = random.choice(validMoves)
         self.pos = (self.pos[0] + move[0], self.pos[1] + move[1])
 
-    def plotMe(self, ax, LIMITS):
+    def plotMe(self, ax, LIMITS, shape, size):
         for i in range(self.num_segments):
             segment_pos = (self.pos[0], self.pos[1] +
                            i * 2 * self.segment_radius)
             segment_pos = flipCoords(segment_pos, LIMITS)
-            circle = plt.Circle(
-                segment_pos, self.segment_radius, color=self.colour)
-            ax.add_patch(circle)
+            if shape == "circle":
+                obj = plt.Circle(segment_pos, size, color=self.colour)
+            ax.add_patch(obj)
 
-# Creating obstacles
+
+# Defining obstacles class
 
 
 class Plant():
@@ -179,6 +205,8 @@ class Rock():
         XYpos = flipCoords(self.pos, LIMITS)
         circle1 = plt.Circle(XYpos, self.size, color=self.colour)
         ax.add_patch(circle1)
+
+# Defining rain for simulation of rain
 
 
 class Raindrop():
