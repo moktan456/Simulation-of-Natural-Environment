@@ -1,3 +1,8 @@
+## Author Details
+
+Author: Nima Dorji Moktan
+Created: 20-Sept-2023
+
 ## Synopsis
 
 This project aims to simulate a dynamic garden ecosystem using the Python programming language. By integrating various entities such as ants, butterflies, ladybugs, caterpillars, plants, rocks, and raindrops, the simulation provides an interactive platform for users to explore the complexities of natural environments.
@@ -6,7 +11,7 @@ This project aims to simulate a dynamic garden ecosystem using the Python progra
 
 README - readme file for the Project
 garden.py - Module for simGarden project
-simGarden.py - Simulating ants and butterflies
+simGarden.py - Simulating various entities with within the simulated garden
 garden.csv - CSV file of terrain and sky
 
 ## Dependencies:
@@ -14,10 +19,11 @@ garden.csv - CSV file of terrain and sky
 numpy
 matplotlib
 random
+time
 
 ## Version information
 
-<02/10/2023> - Initial Version
+<25/09/2023> - Initial Version
 
 ## Features
 
