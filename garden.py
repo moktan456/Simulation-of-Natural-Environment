@@ -32,6 +32,13 @@ class Organism:
                 (XYpos[0] + size * 2, XYpos[1]), size, size * 2, color=self.colour)
         ax.add_patch(obj)
 
+    # Code to detect collision
+
+    def check_collision(self, other_pos):
+        if self.pos == other_pos:
+            return True
+        return False
+
 # Definition of Ant class inheriting the super class Organism
 
 
@@ -100,11 +107,6 @@ class Butterfly(Organism):
             move = random.choice(validMoves)
             self.pos = (self.pos[0] + move[0],  self.pos[1] + move[1])
 
-    # def plotMe(self, ax, LIMITS):
-    #     XYpos = flipCoords(self.pos, LIMITS)
-    #     circle1 = plt.Circle(XYpos, self.size, color=self.colour)
-    #     ax.add_patch(circle1)
-
 
 # Definition of Ladybug class inheriting the super class Organism
 class Ladybug(Organism):
@@ -126,10 +128,6 @@ class Ladybug(Organism):
         move = random.choice(validMoves)
         self.pos = (self.pos[0] + move[0], self.pos[1] + move[1])
 
-    # def plotMe(self, ax, LIMITS):
-    #     XYpos = flipCoords(self.pos, LIMITS)
-    #     circle1 = plt.Circle(XYpos, self.size, color=self.colour)
-    #     ax.add_patch(circle1)
 
 # Definition of Caterpillar class inheriting the super class Organism
 
